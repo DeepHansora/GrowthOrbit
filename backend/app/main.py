@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config.settings import settings
 from app.database.init_db import init_db
-from app.routes import health
+from app.routes import auth, dashboard, health, missions
 
 
 @asynccontextmanager
@@ -27,6 +27,9 @@ app.add_middleware(
 )
 
 app.include_router(health.router, tags=["Health"])
+app.include_router(auth.router, tags=["Authentication"])
+app.include_router(dashboard.router, tags=["Dashboard"])
+app.include_router(missions.router, tags=["Missions"])
 
 
 @app.get("/")

@@ -1,4 +1,7 @@
 from app.database.session import Base, engine
+from app.models import completed_mission, mission, user
+from app.database.session import SessionLocal
+from app.services.mission_service import seed_missions_if_empty
 
 
 def init_db():
@@ -6,3 +9,8 @@ def init_db():
     # This is simple and beginner-friendly for SQLite development.
     Base.metadata.create_all(bind=engine)
 
+    db = SessionLocal()
+    try:
+        seed_missions_if_empty(db)
+    finally:
+        db.close()

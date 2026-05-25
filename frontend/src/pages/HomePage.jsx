@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import GlassCard from "../components/GlassCard.jsx";
 import { fadeUp, staggerContainer } from "../animations/motion.js";
@@ -74,12 +75,18 @@ function HomePage() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-9 flex flex-col gap-4 sm:flex-row">
-            <button className="rounded-full bg-teal-300 px-6 py-3 font-semibold text-slate-950 shadow-glow transition hover:bg-teal-200">
+            <Link
+              to="/signup"
+              className="rounded-full bg-teal-300 px-6 py-3 text-center font-semibold text-slate-950 shadow-glow transition hover:bg-teal-200"
+            >
               Start Building
-            </button>
-            <button className="rounded-full border border-white/10 px-6 py-3 font-semibold text-white transition hover:border-white/30 hover:bg-white/10">
-              View Architecture
-            </button>
+            </Link>
+            <Link
+              to="/login"
+              className="rounded-full border border-white/10 px-6 py-3 text-center font-semibold text-white transition hover:border-white/30 hover:bg-white/10"
+            >
+              Login
+            </Link>
           </motion.div>
 
           <motion.p variants={fadeUp} className="mt-6 text-sm text-slate-400">
