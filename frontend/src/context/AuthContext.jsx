@@ -34,6 +34,7 @@ export function AuthProvider({ children }) {
 
   function login(accessToken) {
     saveToken(accessToken);
+    setIsCheckingAuth(true);
     setToken(accessToken);
   }
 
