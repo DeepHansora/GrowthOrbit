@@ -1,22 +1,30 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AnimatedButton from "../components/AnimatedButton.jsx";
 import GlowCard from "../components/GlowCard.jsx";
 import InputField from "../components/InputField.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 import { fadeUp, staggerContainer } from "../animations/motion.js";
+import { loginUser } from "../services/authService.js";
 
 function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated, login } = useAuth();
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   function handleChange(event) {
     setFormData({ ...formData, [event.target.name]: event.target.value });
     setError("");
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (!formData.email || !formData.password) {
@@ -30,10 +38,17 @@ function LoginPage() {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
+    setError("");
+
+    try {
+      const data = await loginUser(formData);
+      login(data.access_token);
+      navigate("/dashboard");
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
       setIsLoading(false);
-      setError("API connection will be added in the next step.");
-    }, 700);
+    }
   }
 
   return (
@@ -92,4 +107,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-

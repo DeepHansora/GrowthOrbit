@@ -1,22 +1,32 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AnimatedButton from "../components/AnimatedButton.jsx";
 import GlowCard from "../components/GlowCard.jsx";
 import InputField from "../components/InputField.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 import { fadeUp, staggerContainer } from "../animations/motion.js";
+import { signupUser } from "../services/authService.js";
 
 function SignupPage() {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   function handleChange(event) {
     setFormData({ ...formData, [event.target.name]: event.target.value });
     setError("");
+    setSuccessMessage("");
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (!formData.name || !formData.email || !formData.password) {
@@ -35,10 +45,18 @@ function SignupPage() {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
+    setError("");
+    setSuccessMessage("");
+
+    try {
+      const data = await signupUser(formData);
+      setSuccessMessage(data.message || "Account created successfully.");
+      setTimeout(() => navigate("/login"), 900);
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
       setIsLoading(false);
-      setError("API connection will be added in the next step.");
-    }, 700);
+    }
   }
 
   return (
@@ -88,6 +106,12 @@ function SignupPage() {
             </div>
           )}
 
+          {successMessage && (
+            <div className="rounded-xl border border-emerald-300/20 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-100">
+              {successMessage}
+            </div>
+          )}
+
           <AnimatedButton type="submit" isLoading={isLoading}>
             Create Account
           </AnimatedButton>
@@ -105,4 +129,3 @@ function SignupPage() {
 }
 
 export default SignupPage;
-
