@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import ResumeAnalysisPage from "./pages/ResumeAnalysisPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/resume-analysis" element={<ResumeAnalysisPage />} />
       </Route>
     </Routes>
   );

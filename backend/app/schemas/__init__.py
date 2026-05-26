@@ -6,6 +6,7 @@ from app.schemas.mission import (
     MissionResponse,
     RecentCompletedMissionResponse,
 )
+from app.schemas.resume import ResumeAnalysisResponse
 from app.schemas.user import (
     CurrentUserResponse,
     UserLoginRequest,
@@ -22,6 +23,7 @@ __all__ = [
     "MissionCompleteResponse",
     "MissionResponse",
     "RecentCompletedMissionResponse",
+    "ResumeAnalysisResponse",
     "UserLoginRequest",
     "UserResponse",
     "UserSignupRequest",

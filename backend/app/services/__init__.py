@@ -10,9 +10,11 @@ from app.services.mission_service import (
     get_all_missions,
     seed_missions_if_empty,
 )
+from app.services.resume_service import analyze_resume_with_gemini
 
 __all__ = [
     "authenticate_user",
+    "analyze_resume_with_gemini",
     "complete_mission",
     "create_token_for_user",
     "create_user",

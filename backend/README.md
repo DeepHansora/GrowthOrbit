@@ -22,6 +22,7 @@ uvicorn app.main:app --reload
 - Dashboard: `GET http://localhost:8000/dashboard`
 - Missions: `GET http://localhost:8000/missions`
 - Complete mission: `POST http://localhost:8000/missions/complete/{mission_id}`
+- Resume analysis: `POST http://localhost:8000/resume-analysis`
 - API docs: `http://localhost:8000/docs`
 
 ## Notes
@@ -29,4 +30,5 @@ uvicorn app.main:app --reload
 - SQLite is initialized automatically when the app starts.
 - Authentication includes basic signup and login routes.
 - Dashboard and mission routes require `Authorization: Bearer <token>`.
+- Resume analysis requires a Gemini API key in `.env`.
 - CORS is configured for the React frontend at `http://localhost:5173`.

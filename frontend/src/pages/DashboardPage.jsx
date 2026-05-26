@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DashboardLayout from "../components/DashboardLayout.jsx";
 import MissionCard from "../components/MissionCard.jsx";
 import StatCard from "../components/StatCard.jsx";
@@ -142,6 +142,12 @@ function DashboardPage() {
                       Complete each mission once to earn XP.
                     </p>
                   </div>
+                  <Link
+                    to="/resume-analysis"
+                    className="hidden rounded-full border border-sky-300/20 bg-sky-300/10 px-4 py-2 text-sm text-sky-100 transition hover:border-sky-300/50 hover:bg-sky-300/15 sm:inline-flex"
+                  >
+                    Analyze Resume
+                  </Link>
                 </div>
 
                 <div className="mt-5 grid gap-5">
